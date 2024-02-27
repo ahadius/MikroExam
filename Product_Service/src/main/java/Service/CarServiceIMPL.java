@@ -1,15 +1,16 @@
-package Cars;
+package Service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import Cars.Car;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import repository.CarRepository;
 
 @Service
-public class CarService {
+@AllArgsConstructor
+public class  CarServiceIMPL implements CarService {
 
-    @Autowired
     private CarRepository carRepository;
-
+@Override
     public Car addCar(Car car) {
         // Save the car entity to the database
         return carRepository.save(car);
