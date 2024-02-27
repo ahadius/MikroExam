@@ -1,9 +1,9 @@
-package Service;
+package no.kristiania.carservice.Cars.Service;
 
-import Cars.Car;
+import no.kristiania.carservice.Cars.entity.Car;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import repository.CarRepository;
+import no.kristiania.carservice.Cars.repository.CarRepository;
 
 @Service
 @AllArgsConstructor

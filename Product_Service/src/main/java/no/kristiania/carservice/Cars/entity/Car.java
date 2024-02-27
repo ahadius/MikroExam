@@ -1,4 +1,4 @@
-package Cars;
+package no.kristiania.carservice.Cars.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,7 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String make;
-    private int year;
+    private int releasedYear;
     private String color;
     private int price;
 }
