@@ -16,9 +16,13 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String make;
     private int releasedYear;
     private String color;
     private int price;
+
+    // Getters and setters
 }
+
 
