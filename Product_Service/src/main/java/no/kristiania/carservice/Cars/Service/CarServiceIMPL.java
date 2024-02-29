@@ -1,9 +1,9 @@
 package no.kristiania.carservice.Cars.Service;
 
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 import no.kristiania.carservice.Cars.entity.Car;
 import no.kristiania.carservice.Cars.repository.CarRepository;
+import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
@@ -18,11 +18,15 @@ public class CarServiceIMPL implements CarService {
     }
 
     @Override
-    public boolean isCarAvailable(Long carId) {
-        // Implement logic to check if the car with the given ID is available
-        return carRepository.existsById(carId);
+    public boolean isCarAvailable(Long id) {
+        // Check if a car with the given ID exists in the database
+        return carRepository.existsById(id);
     }
+
+    @Override
+    public Car getCarById(Long id) {
+        // Retrieve a car entity from the database by its ID
+        return carRepository.findById(id).orElse(null);
+    }
+
 }
-
-
-

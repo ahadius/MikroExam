@@ -1,8 +1,11 @@
-package no.kristiania.orderservice.order.repository;
+package no.kristiania.orderservice.order.Repository;
 
 import no.kristiania.orderservice.order.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
-    // Custom query methods if needed
+    // Define custom query methods if needed
 }
+
