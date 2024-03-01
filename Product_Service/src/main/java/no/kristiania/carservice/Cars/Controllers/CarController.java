@@ -14,7 +14,7 @@ public class CarController {
 
     private CarService carService;
 
-    @PostMapping  // Ensure that this method handles POST requests
+    @PostMapping
     public ResponseEntity<Car> addCar(@RequestBody Car car) {
         Car savedCar = carService.addCar(car);
         return new ResponseEntity<>(savedCar, HttpStatus.CREATED);

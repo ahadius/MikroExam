@@ -16,10 +16,12 @@ public class OrderServiceimpl {
     @Value("${gateway.url}")
     private String gatewayUrl;
 
+    private final CarService carService;
     private final RestTemplate restTemplate;
 
     @Autowired
-    public OrderServiceimpl(RestTemplate restTemplate) {
+    public OrderServiceimpl(CarService carService, RestTemplate restTemplate) {
+        this.carService = carService;
         this.restTemplate = restTemplate;
     }
 
@@ -29,7 +31,7 @@ public class OrderServiceimpl {
         if (responseEntity.getStatusCode() == HttpStatus.OK) {
             return responseEntity.getBody();
         } else {
-            return null; // Car details not found
+            return null;
         }
     }
 
@@ -41,19 +43,18 @@ public class OrderServiceimpl {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
                 JsonNode root = objectMapper.readTree(responseBody);
-                // Check if the root node and the 'available' field are not null
                 if (root != null && root.has("available") && !root.get("available").isNull()) {
                     return root.get("available").asBoolean();
                 } else {
-                    // Handle missing or null 'available' field
+
                     return false;
                 }
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
-                return false; // Handle parsing error
+                return false;
             }
         } else {
-            return false; // Handle non-200 status code
+            return false;
         }
     }
 
@@ -61,16 +62,21 @@ public class OrderServiceimpl {
         boolean isProductAvailable = checkProductAvailability(id);
 
         if (isProductAvailable) {
-            notifyOrder(id);
-            System.out.println("Order created successfully for product with ID " + id);
+            String carDetails = getCarDetails(id);
+            if (carDetails != null) {
+                carService.saveCarDetails(carDetails);
+                notifyOrder(id);
+                System.out.println("Order created successfully for product with ID " + id);
+            } else {
+                System.out.println("Car details not found for product with ID " + id);
+            }
         } else {
             System.out.println("Product with ID " + id + " is not available.");
         }
+
     }
 
     private void notifyOrder(Long id) {
-        // Simulate notifying an external system about the new order
-        // In a real-world scenario, you would call an endpoint to create a notification
         System.out.println("Order notification sent for product with ID " + id);
     }
 }
